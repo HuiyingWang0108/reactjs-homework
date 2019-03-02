@@ -16,7 +16,7 @@ class App extends React.Component {
     cards,
     score: 0,
     highscore: 0,
-    isOver:0//0: Click an image to begin!; 1:You guessed incorrectly!; 2: You guessed correctly!
+    isOver: 0//0: Click an image to begin!; 1:You guessed incorrectly!; 2: You guessed correctly!
   };
 
   gameOver = () => {
@@ -30,7 +30,7 @@ class App extends React.Component {
     });
     // alert(`Game Over :( \nscore: ${this.state.score}`);
     this.setState({ score: 0 });
-    this.setState({isOver:1});
+    this.setState({ isOver: 1 });
     return true;
   }
 
@@ -40,8 +40,10 @@ class App extends React.Component {
         if (cards[i].count === 0) {
           cards[i].count = cards[i].count + 1;
           this.setState({ score: this.state.score + 1 }, function () {
-            this.setState({ highscore: this.state.score });
-            this.setState({isOver:2});
+            if (this.state.score > this.state.highscore) {
+              this.setState({ highscore: this.state.score });
+            }
+            this.setState({ isOver: 2 });
             console.log(this.state.score);
           });
           this.state.cards.sort(() => Math.random() - 0.5)
@@ -54,12 +56,12 @@ class App extends React.Component {
       }
     });
   }
-  messageInfo = isOver =>{
-    if(isOver===1){
+  messageInfo = isOver => {
+    if (isOver === 1) {
       return "You guessed incorrectly!";
-    }else if(isOver===2){
+    } else if (isOver === 2) {
       return "You guessed correctly!";
-    }else if(isOver===0){
+    } else if (isOver === 0) {
       return "Click an image to begin!";
     }
   }
@@ -68,8 +70,8 @@ class App extends React.Component {
       <Wrapper>
         <Title
           // message= {this.state.gameOver ? "You guessed incorrectly!" : "You guessed correctly!"}
-          isOver= {this.state.isOver}
-          messageInfo= {this.messageInfo}
+          isOver={this.state.isOver}
+          messageInfo={this.messageInfo}
           score={this.state.score}
           topScore={this.state.highscore}
         />
