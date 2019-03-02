@@ -40,6 +40,7 @@ class App extends React.Component {
         if (cards[i].count === 0) {
           cards[i].count = cards[i].count + 1;
           this.setState({ score: this.state.score + 1 }, function () {
+            this.setState({ highscore: this.state.score });
             console.log(this.state.score);
           });
           this.state.cards.sort(() => Math.random() - 0.5)
